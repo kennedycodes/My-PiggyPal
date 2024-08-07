@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PiggyPal</title>
+        <link rel="icon" type="image/x-icon" href="piggypal-icon.png">
+        <link rel="stylesheet" href="style.css"/>
+        <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        
+        <script src="script.js"></script>
+
+        <!--------------SIDEBAR-------------->
+        <div class = "sidebar">
+            <div class = "logo">
+                <img src="piggypal-icon.png" alt="piggy pal logo">
+            </div>
+            <ul class = "menu">
+                <li>
+                    <button class="tablink" onclick="openPage('welcome',this)">
+                        <i class="fa-solid fa-home"></i>
+                        <span>Home</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('main',this)">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>     Primary Budget</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('credit',this)">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span>     Credit Management</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('debt',this)">
+                        <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                        <span>     Debt Management</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('invest',this)">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>     Investment Plan</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('splurge',this)">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        <span>     Splurge Strategy</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tablink" onclick="openPage('about',this)">
+                        <i class="fa-solid fa-people-roof"></i>
+                        <span>     About Us</span>
+                    </button>
+                </li>
+                <li class="logout">
+                    <button>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>     Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <!--------------------------PRIMARY BUDGET----------------------->
+    <div id="main" class="main-content tabcontent">
+        <div class="header-wrapper">
+            <div class="header-title">
+             <span>PiggyPal</span>
+             
+                <h2>Dashboard</h2>
+            </div>
+            <div class="user-info">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type = "text" placeholder="search">
+                </div>
+            </div>
+        </div>
+
+        <!----------------------------PERSONAL INFORMATION------------------->
+
+        <button class="accordion">Personal Information</button>
+        <div class="panel">
+
+            <form>
+                <label for="firstNameInput">First Name:</label>
+                <input type="text" id="firstName" name="firstName">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName">
+                <br>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state">
+                <br>
+                <label for="careerTitle">Career Title:</label>
+                <input type="text" id="careerTitle" name="careerTitle">
+                <br>
+                <label for="annualIncome">Pre-Tax Income:</label> 
+                <input type="number" id="annualIncome" name="annualIncome">
+                <p id="post-tax"></p>
+                <p id="post-tax2"></p>
+                <p id = "tax-amount"></p>
+                <p id="tax-amount2"></p>
+                <br>  
+                What Are Your Current Financial Priorities?
+                <br>
+                <input type="checkbox" id="priority1" name="priority1" value="Savings">
+                <label for="priority1">Savings</label> 
+                <br>
+                <input type="checkbox" id="priority2" name="priority2" value="Retirement">
+                <label for="priority2">Retirement</label> 
+                <br>
+                <input type="checkbox" id="priority3" name="priority3" value="Debt Repayment">
+                <label for="priority3">Debt Repayment</label> 
+                <br>
+            </form>
+            <button id="calcButton" onclick="calcBudget()">Calculate</button>
+        </div>
+
+        <!----------------------------NEEDS TABLE-------------------->
+        <div class="table-wrapper">
+            <h3 class="main-title">
+                Needs <span id="needsExcess" style="margin-left: 50%;"></span>
+            </h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                        <th>
+                            Expense
+                        </th>
+                        <th>
+                            Goal
+                        </th>
+                        <th>
+                            Max
+                        </th>
+                        <th>
+                            Actual
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!---------------------RENT------------->
+                        <tr>
+                            <td>
+                                Rent
+                            </td>
+                            <td id="rentGoal">
+                                
+                            </td>
+                        <td id="rentMax">
+                            
+                        </td>
+                        <td>
+                            <input class="actualNeeds inputBox" type="number" id="rentActual" name="rentActual">
+                        </td>
+                        </tr>
+                        <!---------------------UTILITIES------------->
+                        <tr>
+                            <td>
+                                Utilities
+                            </td>
+                            <td id="utilGoal">
+                                
+                            </td>
+                        <td id="utilMax">
+                            
+                        </td>
+                        <td>
+                            <input class="actualNeeds inputBox" type="number" id="utilitiesActual" name="utilitiesActual">
+                        </td>
+                    </tr>
+                        <!---------------------CAR------------->
+                        <tr>
+                            <td>
+                                Car Payment & Gas
+                            </td>
+                            <td id="carGoal">
+                                
+                            </td>
+                        <td id="carMax">
+                            
+                        </td>
+                        <td>
+                            <input class="actualNeeds inputBox" type="number" id="carActual" name="carActual">
+                        </td>
+                        </tr>
+                        <!---------------------INSURANCE------------->
+                        <tr>
+                            <td>
+                                Insurance
+                            </td>
+                            <td id="insurGoal">
+                                
+                            </td>
+                        <td id="insurMax">
+                            
+                        </td>
+                        <td>
+                            <input class="actualNeeds inputBox" type="number" id="insuranceActual" name="insuranceActual">
+                        </td>
+                    </tr>
+                    <!---------------------GROCERIES------------->
+                    <tr>
+                        <td>
+                            Groceries
+                        </td>
+                        <td id="grocGoal">
+                            
+                        </td>
+                    <td id="grocMax">
+                        
+                    </td>
+                    <td>
+                        <input class="actualNeeds inputBox " type="number" id="groceriesActual" name="groceriesActual">
+                    </td>
+                </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td >Total: $</td>
+                            <td id="totalNeedsGoal">
+                                
+                            </td>
+                            <td id="totalNeedsMax">
+                                
+                            </td>
+                            <td id="totalNeedsActual">
+                                $0.00
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!----------------------------WANTS TABLE-------------------->
+        <div class="table-wrapper">
+            <h3 class="main-title">
+                Wants <span id="wantsExcess" style="margin-left: 50%;"></span>
+            </h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                        <th>
+                            Expense
+                        </th>
+                        <th>
+                            Goal
+                        </th>
+                        <th>
+                            Max
+                        </th>
+                        <th>
+                            Actual
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!---------------------PHONE BILL------------->
+                        <tr>
+                            <td>
+                                Phone Bill
+                            </td>
+                            <td id="phoneGoal">
+                                
+                            </td>
+                        <td id="phoneMax">
+                            
+                        </td>
+                        <td>
+                            <input class="actualWants inputBox" type="number" id="phoneActual" name="phoneActual">
+                        </td>
+                    </tr>
+                    <!---------------------EATING OUT------------->
+                    <tr>
+                        <td>
+                            Eating Out
+                        </td>
+                        <td id="eatingGoal">
+                            
+                        </td>
+                    <td id="eatingMax">
+                        
+                    </td>
+                    <td>
+                        <input class="actualWants inputBox" type="number" id="eatingActual" name="eatingActual">
+                    </td>
+                </tr>
+                <!---------------------PET------------->
+                <tr>
+                    <td>
+                        Pet Food & Care
+                    </td>
+                    <td id="petGoal">
+                        
+                    </td>
+                <td id="petMax">
+                    
+                </td>
+                <td>
+                    <input class="actualWants inputBox" type="number" id="petActual" name="petActual">
+                </td>
+            </tr>
+            <!---------------------STREAMING------------->
+            <tr>
+                <td>
+                    Streaming Services
+                </td>
+                <td id="streamingGoal">
+                    
+                </td>
+            <td id="streamingMax">
+                
+            </td>
+            <td>
+                <input class="actualWants inputBox" type="number" id="streamingActual" name="streamingActual">
+            </td>
+        </tr>
+        <!---------------------GYM------------->
+        <tr>
+            <td>
+                Gym Membership
+            </td>
+            <td id="gymGoal">
+                
+            </td>
+        <td id="gymMax">
+            
+        </td>
+        <td>
+            <input class="actualWants inputBox" type="number" id="gymActual" name="gymActual">
+        </td>
+    </tr>
+    <!---------------------MISC.------------->
+    <tr>
+        <td>
+            Misc.
+        </td>
+        <td id="miscGoal">
+            
+        </td>
+    <td id="miscMax">
+        
+    </td>
+    <td>
+        <input class="actualWants inputBox" type="number" id="miscActual" name="miscActual">
+    </td>
+</tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td >Total: $</td>
+                            <td id="totalWantsGoal">
+                                
+                            </td>
+                            <td id="totalWantsMax">
+                                
+                            </td>
+                            <td id="totalWantsActual">
+                                $0.00
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!----------------------------SAVINGS TABLE-------------------->
+        <div class="table-wrapper">
+            <h3 class="main-title">
+                Savings <span id="savingsExcess" style="margin-left: 50%;"></span>
+            </h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                        <th>
+                            Expense
+                        </th>
+                        <th>
+                            Goal
+                        </th>
+
+                        <th>
+                            Max
+                        </th>
+                        <th>
+                            Actual
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!---------------------RETIREMENT------------->
+                        <tr>
+                            <td>
+                                Retirement
+                            </td>
+                            <td id="retireGoal">
+                                
+                            </td>
+                            <td>
+                                <span style="font-size: 30px; margin-left: 10px;">&infin;</span>
+                            </td>
+                        <td>
+                            <input class="actualSavings inputBox" type="number" id="retirementActual" name="retirementActual">
+                        </td>
+                        </tr>
+                        <!---------------------SAVINGS------------->
+                        <tr>
+                            <td>
+                                Savings
+                            </td>
+                            <td id="savings">
+                                
+                            </td>
+                            <td>
+                               <span style="font-size: 30px; margin-left: 10px;">&infin;</span>
+                            </td>
+
+                        <td>
+                            <input class="actualSavings inputBox" type="number" id="savingsActual" name="savingsActual">
+                        </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td >Total: $</td>
+                            <td id="totalSavingsGoal">
+                                
+                            </td>
+                            <td id="totalSavingsMax">
+                                
+                            </td>
+                            <td id="totalSavingsActual">$0.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-------------------------------PIE CHART-------------------------->
+        <!--<div>
+            <h3 style="text-align: center;">
+            Pie Chart
+            </h3>
+            <div id="budgetChart" style="width: 100%; height: 100%;">
+                
+            </div>
+    </div>-->
+
+
+    </div>
+
+    <!---------------------------------WELCOME CONTENT------------------->
+    <div id="welcome" class="tabcontent">
+        <div class="titleHeader">
+
+            <span class="welcomeTitle">Welcome to <br><span class="piggypal">PiggyPal</span></span>
+        <br>
+ 
+                <span class = "piggyTitle">Your Path to Financial Freedom</span>
+
+            </div>
+        <p class = "text" id="text1">
+            At PiggyPal, we believe that financial management shouldn't be stressful or complicated. Our mission is to empower you to take control of your finances and achieve a balanced, fulfilling life. We employ the proven 50/30/20 budgeting strategy to help you manage your money effectively, ensuring you can cover your essentials, enjoy your desires, and secure your future.
+        </p>
+        <div class="text row1" id="text2">
+        <h2>How It Works:</h2>
+        <ol>
+            <li>
+                <span class="listHeader">Income Calculation</span>
+                <ul>
+                    <li>Post-Tax Income: If you know your post-tax annual income, simply enter it, and we'll get started.</li>
+                    <li>Pre-Tax Income: If you only have your pre-tax income, no problem. We'll calculate your post-tax income for you, ensuring accuracy based on your specific tax situation.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="listHeader">Budget Creation</span>
+                <ul>
+                    <li>
+                       50% Needs: Essentials like housing, utilities, groceries, transportation, and insurance. These are the non-negotiables that keep your life running smoothly.
+                     </li>
+                     <li>30% Wants: Lifestyle choices such as dining out, entertainment, hobbies, and travel. This category ensures you enjoy life without guilt.</li>
+                     <li>20% Savings and Debt Repayment: Building your financial future through savings, investments, and paying down debt. This is your path to long-term security and peace of mind.</li>    
+                 </ul>
+            </li>
+            <li>
+                <span class="listHeader">Personalized Subcategories</span>
+                <ul>
+                    <li>Under each main category, we offer customizable subcategories. Tailor your budget to reflect your unique spending habits and priorities.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="listHeader">Track Your Spending</span>
+                <ul><li>Our intuitive tracking tools allow you to monitor your acual spending against your budget. Visual dashboards and reports help you stay on track, identify patterns, and make adjustments as needed.</li></ul>
+            </li>
+        </ol>
+        </div>
+        <div class = "row1" id="imageStack">
+            <img id="pic1" src="groceries.jpg">
+            <img id="pic2" src="on vacay.jpg">
+            <img id="pic3" src="retired.jpg">
+        </div>
+        <div id="imageStack">
+            <img id="pic4" src="finances.jpg">
+            <img id="pic5" src="piggybank.jpg">
+        </div>
+        <div class="text" id="text3">
+            <h2>Why PiggyPal?</h2>
+            <h3>Financial Freedom:</h3>
+            <p>
+                We design your budget to help you avoid the paycheck-to-paycheck cycle, giving you more financial breathing room and the ability to handle unexpected expenses.
+            </p>
+            <h3>Balanced Lifestyle:</h3>
+            <p>
+                By allocating funds to both needs and wants, we ensure that you don't have to sacrifice joy and experiences while being financially responsible.
+            </p>
+            <h3>User-Friendly Interface:</h3>
+            <p>
+                Our platform is easy to navigate, making budgeting a seamless and stress-free experience.
+
+            </p>
+            <h3>Goal-Oriented:</h3>
+            <p>
+                Set and achieve your financial goals, whether it's saving for a big purchase, paying off debt, or building an emergency fund.
+            </p>
+            </div>
+
+            <div id="resourcesSection">
+               <br>
+                <br>
+            <div class="text" id="resourcesTitle">
+                <p>Other Offered Financial Strategy Plans:</p>
+            </div>
+            <div id="resourcesPanel">
+            <button class = "accordion">Credit Management</button>
+            <div class="panel" id="resourceText">
+                <p style="margin-left: 0.1in; margin-bottom: 0.1in; font-size: 22px;">
+                    Discover the power of smart credit card usage with PiggyPal's Credit Card Management Planner! Our tool guides you on optimizing your credit lines, helping you:
+                </p>
+                <ul>
+                    <li>
+                        <em><u>Improve Your Credit Score:</u></em> Learn strategies to keep your credit utilization low and payments on time.
+                    </li>
+                    <li>
+                        <em><u>Track Spending:</u></em> Monitor your credit card transactions to stay within budget.
+                    </li>
+                    <li>
+                        <em><u>Avoid Fees and Interest:</u></em> Get tips on how to avoid late fees and minimize interest charges.
+                    </li>
+                    <li>
+                        <em><u>Maximize Rewards:</u></em> Make the most of your credit card rewards without overspending.
+                    </li>
+                    <li>
+                        <em><u>Boost Financial Literacy:</u></em> Understand essential credit card terms and improve your financial knowledge.
+                    </li>
+                </ul>
+                <p style="margin-top: 0.1in;">
+                    Take control of your financial future with PiggyPal, and turn your credit cards into tools for financial success!
+                </p>
+            </div>
+            <button class = "accordion">Debt Management</button>
+            <div class="panel" id="resourceText">
+                <p style="margin-left: 0.1in; margin-bottom: 0.1in; font-size: 22px;">
+                    Our Debt Management Planner provides personalized strategies to help you pay off your debts efficiently and effectively. Choose between the Snowball Method and the Avalanche Method to find the best fit for your financial goals.</p>
+                    <ul>
+                    <li>
+                        <em><u>Snowball Method:</u></em> Focus on paying off your smallest debts first, gaining momentum as each balance is cleared.</li>
+                    <li>
+                        <em><u>Avalance Method:</u></em> Prioritize debts with the highest interest rates, saving you money in the long run.</li>
+                </ul>
+                <p style="margin-top: 0.1in;">
+                    Empower yourself with PiggyPal and take control of your financial future today!    
+                </p>
+            </div>
+            <button class = "accordion">Investment Plan</button>
+            <div class="panel" id="resourceText">
+                <p style="font-size: 24px;">Maximize Your Retirement Savings</p>
+                <p style="margin-top: 0.1in;">Our Investment Management Planner helps you navigate the complexities of retirement planning with ease. Follow our preferred strategy:</p>
+                <ol>
+                    <li>
+                        <em><u>401k Contributions: </u></em>Start by contributing to your 401k up to the employer match to maximize free money.
+                    </li>
+                    <li>
+                        <em><u>Roth IRA: </u></em>Next, focus on maximizing your Roth IRA contributions for tax-free growth.
+                    </li>
+                    <li>
+                        <em><u>Additional 401k Contributions: </u></em>If you're still contributing to your retirement after your Roth IRA is maxed out, return to your 401k to further boost your retirement savings.
+                    </li>
+                </ol>
+                <p style="margin-top: 0.1in; font-size: 24px;">Smart Choices for a Secure Future</p>
+                <ul>
+                    <li>
+                        <em><u>Account Selection: </u></em>Determine whether a 401k, Roth IRA, or Traditional IRA is best for your financial goals.
+                    </li>
+                    <li>
+                        <em><u>Contribution Advice: </u></em>Get personalized recommendations on how much of your income to allocate towards your retirement accounts for optimal growth.
+                    </li>
+                    <li>
+                        <em><u>Investment Options: </u></em>Choose from a variety of investment options tailored to your risk tolerance and retirement timeline.
+                    </li>
+                    <li>
+                        <em><u>Retirement Calculator: </u></em>Use our powerful calculator to predict your future savings and ensure you're on track for a comfortable retirement.
+                    </li>
+                </ul>
+                <p style="margin-top: 0.1in;">
+                    PiggyPal's Investment Management Planner is your secret weapon for achieving a worry-free retirement.
+                </p>
+            </div>
+            <button class = "accordion">Splurge Strategy</button>
+            <div class="panel" id="resourceText">
+                <p style="font-size: 24px;"><em>Plan Your Big Dreams with Ease</em></p>
+                <p style="margin-top: 0.1in;">
+                    Our Splurge Planner is designed to help you save smartly for life's big-ticket items. Whether you're dreaming of a tropical vacation, planning to buy a new car, or saving for children’s college, PiggyPal's Splurge Planner makes it simple and stress-free. Set your goal, create a savings plan, and watch your dreams come to life without the financial strain of paying off debt. Start planning today and enjoy the rewards of your hard work!
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+
+            <div class = "text" id="text4">
+            <h1>Start Your Journey Today</h1>
+            <p>
+                Join PiggyPal and embark on a journey to financial stability and freedom. Create a budget that aligns with your lifestyle, track your spending with ease, and enjoy the peace of mind that comes with knowing you are in control of your financial future.
+
+                Sign Up Now and take the first step towards a more balanced and fulfilling life.
+            </p>
+             </div>
+        </div>
+    
+    <!-------------------------------------CREDIT MANAGEMENT---------------------------->
+    <div id="credit" class="tabcontent">
+        <h1 id="creditTitle">
+            Credit Management
+        </h1>
+        <div id="creditWelcome">
+            <p>
+                words words words
+            </p>
+        </div>
+        <div id="creditInput">
+            <h2>
+                Enter Your Credit Cards
+            </h2>
+            <form id="creditForm">
+                <div>
+                    <div class="inputGroup">
+                    <label for="creditName">
+                        Credit Card Name:
+                    </label>
+                    <div class="inputWrapper">
+                    <input type="text" id="creditName" required>
+                </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="creditBalance">
+                        Balance: <span class="help" data-help="The current amount you owe on this credit card.">?</span>
+                    </label>
+                    <br>
+                    <div class="inputWrapper">
+                        <span class="dollar">$</span>
+                    <input type="number" id="creditBalance" required>
+                </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="creditLimit">
+                        Credit Limit: <span class="help" data-help="The maximum amount you are allowed to charge on this credit card.">?</span>
+                    </label>
+                    <div class="inputWrapper">
+                        <span class="dollar">$</span>
+                    <input type="number" id="creditLimit" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="creditRate">
+                        Interest Rate: <span class="help" data-help="The annual percentage rate (APR) applied to balances that are not paid off by the due date.">?</span>
+                    </label>
+                    
+                    <div class="inputWrapper">
+                        <span class="percent">%</span>
+                    <input type="number" id="creditRate" required>
+                    </div>
+                </div>
+            
+                </div>
+                <div class="inputGroup">
+                    <label for="closingDate">
+                        Statement Closing Date: <span class="help" data-help="The last day of your billing cycle when your credit card issuer calculates your statement balance.">?</span>
+                    </label>
+                    <div class="inputWrapper">
+                    <input type="date" id="closingDate" required>
+                    
+                    </div>
+                    </div>
+                <div class="inputGroup">
+                    <label for="dueDate">
+                        Due Date: <span class="help" data-help="The date by which you need to pay at least the minimum payment to avoid late fees and interest charges.">?</span>
+                    </label>
+                    <br>
+                    <div class="inputWrapper">
+                    <input type="date" id="dueDate" required>
+                    
+                    </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addCredit()">Add Credit Card</button>
+            </form>
+        </div>
+        <div id="helpTooltip" class="tooltip"></div>
+        <div id = "creditList">
+            <h2>
+                Your Credit Cards
+            </h2>
+            <ul id="creditItems">
+
+            </ul>
+        </div>
+        <!--<div id="tips-container" style="padding: 0.5cm;">
+            <div class="tips">
+                <h2>
+                    Credit Management Tips
+                </h2>
+            <p style="color: white; font-style: italic;">
+                Proper credit card management is essential for maintaining good financial health. By increasing your financial literacy and developing an informed credit management strategy, you can maximize the benefits of credit cards while avoiding common pitfalls.
+            </p>
+            <br>
+            <button class="accordion">
+                1. Understand Your Credit Card Terms
+            </button>
+            <div class="panel">
+                <p>
+                    Before using your credit card, familiarize yourself with the key terms and conditions:
+
+                </p>
+                <br>        
+                <ul style="padding-left: 0.7cm;">
+                            <li>
+                                <em><u>
+                                    Interest Rate (APR): 
+                                </u></em>
+                                This is the interest rate applied to balances that are not paid off by the due date.
+                            </li>
+                            <li>
+                                <em><u>
+                                    Credit Limit: 
+                                </u></em>
+                                The maximum amount you can charge to your card. Staying within this limit is crucial for maintaining a healthy credit score.
+
+                            </li>
+                            <li>
+                                <em><u>
+                                    Credit Utilization: 
+                                </u></em>
+                                The ratio of your current credit card balance to your credit limit, impacting your credit score.
+
+                            </li>
+                            <li>
+                                <em><u>
+                                    Fees:
+                                </u></em>
+                                Understand any associated fees, such as annual fees, late payment fees, and balance transfer fees.
+
+                            </li>
+                            <li>
+                                <em><u>
+                                    Grace Period: 
+                                </u></em>
+                                This is the timeframe during which you can pay off new purchases without incurring interest.
+
+                            </li>
+                            <li>
+                                <em><u>
+                                    Rewards: 
+                                </u></em>
+                                Benefits such as cashback, points, or miles earned based on spending.
+
+                            </li>
+                            <li>
+                                <em><u>
+                                    Statement Closing Date: 
+                                </u></em>
+                                The last day of a billing cycle for a credit card, marking the point when your balance is reported to credit bureaus, which is crucial for determining your credit score as it reflects your credit utilization ratio.
+                            </li>
+                        </ul>
+            </div>
+            <button class="accordion">
+                    2. Planned and Intentional Credit Use
+            </button>
+            <div class="panel">
+                    <p>
+                        Creating an intentional plan for how you use your credit card(s) helps you manage your spending and ensures you can pay off your credit card balance each month:
+                    </p><br>
+                    <ul>
+                        <li>
+                            <em><u>
+                                Track Your Expenses: 
+                            </u></em>
+                            Monitor your spending to see where your money is going.
+                        </li>
+                        <li>
+                            <em><u>
+                                Set Spending Limits: 
+                            </u></em>
+                            Allocate a specific amount for each category of expenses.
+                        </li>
+                        <li>
+                            <em><u>
+                                Adjust as Needed: 
+                            </u></em>
+                            Regularly review and adjust your budget to stay on track.
+                        </li>
+                    </ul>
+            </div>
+            <button class="accordion">
+                    3. Use Your Credit Card Wisely
+            </button>
+            <div class="panel">
+                    <p>
+                        Make strategic use of your credit card to avoid debt and build credit:
+                    </p><br>
+                    <ul>
+                        <li>
+                            <em><u>
+                                Pay Your Balance in Full: 
+                            </u></em>
+                            Aim to pay off your balance every month to avoid interest charges.
+                        </li>
+                        <li>
+                            <em>
+                                <u>
+                                    Make Timely Payments: 
+                                </u>
+                            </em>
+                            Always pay at least the minimum payment by the due date to avoid late fees and negative credit impacts.
+                        </li>
+                        <li>
+                            <em><u>
+                                Limit Large Purchases:
+                            </u></em>
+                            Avoid making large purchases you can't afford to pay off within a month. Instead, save gradually until you can pay in full without the burden of monthly payments and interest rates.
+                        </li>
+                        <li>
+                            <em><u>
+                                Use for Essentials: 
+                            </u></em>
+                            Consider using your card for regular, budgeted expenses like eating out, groceries and utilities.
+
+                        </li>
+                    </ul>
+            </div>
+            <button class="accordion">
+                4. Monitor Your Credit Card Activity
+            </button>
+            <div class="panel">
+                <p>
+                    Regularly reviewing your credit card statements and transactions can help you spot issues early:
+                </p><br>
+                <ul>
+                    <li>
+                        <em><u>
+                            Check Statements Monthly: 
+                        </u></em>
+                        Review your statements for any unauthorized transactions or errors.
+                    </li>
+                    <li>
+                        <em><u>
+                            Set Up Alerts: 
+                        </u></em>
+                        Use your card issuer's alert system to get notifications for purchases, approaching credit limits, and payment due dates.
+                    </li>
+                    <li>
+                        <em><u>
+                            Report Fraud Immediately: 
+                        </u></em>
+                        If you notice any suspicious activity, report it to your card issuer immediately.
+                    </li>
+                </ul>
+            </div>
+            <button class="accordion">
+                5. Manage Your Credit Utilization
+            </button>
+            <div class="panel">
+                <p>
+                    Credit utilization ratio is the amount of credit you're using compared to your total credit limit. Keeping this ratio low is crucial for maintaining a good credit score:
+                </p><br>
+                <ul>
+                    <li>
+                        <em><u>
+                            Keep Utilization Low: 
+                        </u></em>
+                        Aim to use less than 30% of your available credit.
+                    </li>
+                    <li>
+                        <em><u>
+                            Increase Your Credit Limit: 
+                        </u></em>
+                        Request a higher credit limit to improve your utilization ratio, but avoid using the extra credit for unnecessary spending.
+                    </li>
+                    <li>
+                        <em><u>
+                            Pay Down Balances: 
+                        </u></em>
+                        If your utilization is high, focus on paying down your balances quickly.
+                    </li>
+                </ul>
+            </div>
+            <button class="accordion">
+                6. Build and Maintain Good Credit
+            </button>
+            <div class="panel">
+                <p>
+                    A good credit score opens up opportunities for better interest rates and loan terms:
+                </p><br>
+                <ul>
+                    <li>
+                        <em><u>
+                            Pay On Time: 
+                        </u></em>
+                        Timely payments have a significant impact on your credit score.
+                    </li>
+                    <li>
+                        <em><u>
+                            Limit New Credit Applications: 
+                        </u></em>
+                        Too many credit inquires can negatively affect your score.
+                    </li>
+                    <li>
+                        <em><u>
+                            Keep Old Accounts Open: 
+                        </u></em>
+                        Length of credit history matters, so keep your oldest accounts open, even if you don't use them frequently.
+                    </li>
+                    <li>
+                        <em><u>
+                            Diversify Your Credit Mix: 
+                        </u></em>
+                        Having a mix of different types of credit (credit cards, installment loans, etc.) can benefit your score.
+                    </li>
+                </ul>
+            </div>
+            <button class="accordion">
+                7. Avoid Common Credit Card Pitfalls
+            </button>
+            <div class="panel">
+                <p>
+                    Be aware of common mistakes that can lead to financial trouble:
+                </p>
+                <ul>
+                    <li>
+                        <em><u>
+                            Maxing Out Cards: 
+                        </u></em>
+                        Avoid using your entire credit limit as it can harm your credit score and lead to unmanageable debt.
+                    </li>
+                    <li>
+                        <em><u>
+                            Only Making Minimum Payments:  
+                        </u></em>
+                        This leads to high interest costs and prolongs your debt.
+                    </li>
+                    <li>
+                        <em><u>
+                            Ignoring Statements:  
+                        </u></em>
+                        Always review your statements to catch errors or fraud early.
+                    </li>
+                    <li>
+                        <em><u>
+                            Using Cash Advances: 
+                        </u></em>
+                        Cash advances often come with high fees and immediate interest charges.
+                    </li>
+                </ul>
+            </div>
+            </div>
+            
+            
+        </div>-->
+        <!--<div id="creditSummary">
+        <h1 style="margin-left: 15px;">
+            In Summary...
+        </h1><br>
+        <p style="background-color: #ffe0ed; padding: 0.5cm">
+            Managing a credit card responsibly involves understanding its terms, budgeting, monitoring activity, and maintaining a low credit utilization ratio. By following these steps, you can enjoy the benefits of credit cards without falling into debt, ultimately helping you achieve your financial goals.
+        </p>
+    </div>-->
+    </div>
+
+    <!-------------------------------------DEBT MANAGEMENT---------------------------->
+    <div id="debt" class="tabcontent">
+        <h1 id="debtTitle">
+            Debt Management
+        </h1>
+        <div id="debtWelcome">
+            <p>
+                Debt can be overwhelming, but with the right strategy, you can take control and achieve financial freedom. Welcome to PiggyPal's Debt Management page, where we provide the tools and guidance you need to tackle your debt head-on. Here, you'll find two proven methods for paying off debt: the Debt Snowball Method and the Debt Avalanche Method.
+            </p><br>
+            <p>
+                Our interactive dashboard helps you visualize your debt, track your progress, and plan your payments. Use our debt payoff calculator to simulate different scenarios, and let our intuitive tools guide you every step of the way. Whether you're aiming to pay off a credit card, student loan, or mortgage, PiggyPal is here to support your journey to a debt-free future. Let's get started!
+            </p>
+        </div>
+        <div class="debtInput">
+            <h2>Enter Your Debts</h2>
+            <form id="debtForm">
+                <div class="inputGroup">
+                    <label for="debtType">Debt Type:</label>
+                    <select id="debtType">
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Student Loan">Student Loan</option>
+                    <option value="Auto Loan">Auto Loan</option>
+                    <option value="Mortgage">Mortgage</option>
+                    <option value="Medical Debt">Medical Debt</option>
+                    <option value="Payday Loan">Payday Loan</option>
+                    <option value="Retail Store Credit">Retail Store Credit</option>
+                    <option value="Informal Loan">Informal Loan</option>
+                    <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="inputGroup">
+                    <label for="debtAmount">Debt Amount:</label>
+                    <div class="inputWrapper">
+                        <span class="dollar">$</span>
+                        <input type="number" id="debtAmount">
+                    </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="interestRate">
+                        Interest Rate:
+                    </label>
+                    <div class="inputWrapper">
+                    <input type="number" id="interestRate">
+                    <span class="dollar">%</span>
+                    </div>
+                </div>
+                <div class="inputGroup">
+                    <label for = "minMonthly">
+                        Minimum Monthly Payment: 
+                    </label>
+                    <div class="inputWrapper">
+                        <span class="dollar"> $</span>
+                        <input type="number" id="minMonthly">
+                    </div>
+                </div>
+                <button type = "button" onclick="addDebt()">Add Debt</button>
+            </form>
+        </div>
+        <div id = "debtList">
+            <h2>Your Debts</h2>
+            <ul id="debtItems">
+
+            </ul>
+        </div>
+        <div class="debtMethod">
+            <h2>Select Debt Management Method</h2>
+            <button type="button" onclick="selectMethod('snowball')">Snowball Method</button>
+            <button type="button" onclick="selectMethod('avalanche')">Avalanche Method</button>
+        </div>
+        <div id="debtResults" style="display:none;">
+            <h2>Debt Prioritization</h2>
+            <ol id="priorityList">
+
+            </ol>
+        </div>
+        <div class="tips-container">
+        <div class = "tips" id="debtTip1">
+            <h2>
+                Debt Snowball Method
+            </h2>
+            <ul>
+                <li>
+                    List Debts by Balance: List all debts from smallest to largest balance, regardless of interest rate.
+                </li>
+                <li>
+                    Make Minimum Payments: Continue making minimum payments on all debts except the smallest one.
+                </li>
+                <li>
+                    Focus on the Smallest Debt: Allocate any extra money to pay off the smallest debt as quickly as possible.
+                </li>
+                <li>
+                    Move to the Next Debt: Once the smallest debt is paid off, move to the next smallest debt, adding the payment you were making on the first debt to the payments on the second one.
+                </li>
+                <li>
+                    Repeat the Process: Continue this process until all debts are paid off.
+                </li>
+            </ul>
+        </div>
+        <div class="tips" id="debtTip2">
+            <h2>
+                Debt Avalanche Method
+            </h2>
+            <ul>
+                <li>
+                    <strong>List Debts by Interest Rate:</strong> List all debts from highest to lowest interest rate, regardless of balance.</li>
+                <li>
+                    Make Minimum Payments: Continue making minimum payments on all debts except the one with the highest interest rate. </li>
+                <li>
+                    Focus on the Highest Interest Debt: Allocate any extra money to pay off the debt with the highest interest rate as quickly as possible.  </li>
+                <li>
+                    Move to the Next Highest Interest Debt: Once the highest interest debt is paid off, move to the next highest interest rate debt, adding the payment you were making on the first debt to the payments on the second one.</li>
+                <li>
+                    Repeat the Process: Continue this process until all debts are paid off.</li>
+            </ul>
+        </div>
+        </div>
+        <div class="tips">
+            <h2>Tips & Tricks For Tackling Debt</h2>
+            <ul>
+                <li>
+                    Pay Minimum Payments: Ensure you continue making at least the minimum payments on all your debts to avoid late fees and penalties, even while focusing on one debt at a time.
+                </li>
+                <li>
+                    Automate Payments: Set up automatic payments to ensure you never miss a due date, avoiding late fees and protecting your credit score.
+                </li>
+                <li>
+                    Make Extra Payments: Whenever possible, make extra payments towards your debt to reduce the principal faster and save on interest.
+                </li>
+                <li>
+                    Cut Unnecessary Expenses: Identify and reduce non-essential spending to free up more money for debt repayment.
+                </li>
+                <li>
+                    Avoid New Debt: Refrain from taking on new debt while you're in the process of paying off existing balances.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-------------------------------------INVESTMENT PLAN---------------------------->
+    <div id="invest" class="tabcontent">
+        <div id="investIntro">
+            <h2>Investment Planning</h2>
+            <p>
+            Investment planning involves setting financial goals, understanding your risk tolerance, and selecting the right investment vehicles to grow your wealth over time. It's essential for achieving long-term financial security.
+             </p>
+        </div>
+
+        <div id="safeInvestments">
+            <h2>Safe Investment Options</h2>
+            <p>
+                Learn about various safe investment options to grow your wealth with minimal risk. Options include:
+            </p>
+            <ul>
+                <li>
+                    Savings Accounts
+                </li>
+                <li>
+                    Certificates of Deposit (CDs)
+                </li>
+                <li>
+                    Government and Corporate Bonds
+                </li>
+                <li>
+                    Index Funds and ETFs
+                </li>
+            </ul>
+        </div>
+
+        <div id="investCalculator">
+            <h2>Investment Calculator</h2>
+            <form id="investForm">
+                <label for="initialAmount">
+                    Initial Investment Amount ($): 
+                </label>
+                <input type="number" id="initialAmount" name="initialAmount" required>
+                <label for="contributionAmount">
+                    <select id="contributionType">
+                        <option value="monthly">
+                            Monthly
+                        </option>
+                        <option value="annual">
+                            Annual
+                        </option>
+                    </select> Contributions:
+                </label>
+                <input type="number" id="contributionAmount" name="contributionAmount" required>
+                <label for="annualReturn">
+                    Expected Annual Return (%): 
+                </label>
+                <input type="number" id="annualReturn" name="annualReturn" required>
+                <label for = "years">
+                    Investment Duration (Years):
+                </label>
+                <input type="number" id="years" name="years" required>
+                <button type="button" onclick="calculateInvestment()">
+                    Calculate
+                </button>
+            </form>
+            <div id="investmentResult">
+
+            </div>
+        </div>
+
+        <div id="investmentTips" class="tips">
+            <h2>Tips for New Investors</h2>
+            <ul>
+                <li>
+                    Diversify your portfolio to spread risk.
+                </li>
+                <li>
+                    Invest for the long term, not quick gains.
+                </li>
+                <li>
+                    Stay informed about market trends and changes.
+                </li>
+                <li>
+                    Consult with financial advisors if needed.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-------------------------------------SPLURGE STRATEGY---------------------------->
+    <div id="splurge" class="tabcontent">
+            <h1>Splurge Strategy</h1>
+            <div id="splurgeWelcome">
+                <p>
+                    Whether you're dreaming of buying a new car, saving for a fairytale wedding, or planning for a down payment on your dream house, Piggy Pal is here to help you turn those aspirations into achievable goals. Our Splurge Strategy tool will guide you in creating a personalized savings plan, making your big purchases more manageable and stress-free. Let's start planning your financial journey today!
+                </p>
+            </div>
+            <div class="input-group">
+                <label for="totalAmount">
+                    Total Amount Needed ($)
+                </label>
+                <span id="dollarSign">$</span><input type="number" id="totalAmount">
+            </div>
+            <button onclick="calculateSplurge()">Calculate</button>
+            <div id="result"></div>
+            <div class="tips">
+                <h2>Tips for Saving Up for Big Purchases</h2>
+                <ul>
+                <li>Create a dedicated savings account for your goal.</li>
+                <li>Track your expenses to find areas where you can cut back.</li>
+                <li>Automate your savings to ensure consistency.</li>
+                <li>Consider temporary sacrifices, like reducing dining out or subscription services.</li>
+                <li>Look for additional income sources, such as freelance work or selling unused items.</li>
+            
+                </ul>
+            </div>
+    </div>
+
+    <!-------------------------------------ABOUT US---------------------------->
+    <div id="about" class="tabcontent">
+        <h1>About Us</h1>
+        <div class="profile">
+            <img src="Jackson-042.jpg"> <!---put ken's image here-->
+            <div>
+                <h2>
+                    Kennedy Jackson
+                </h2>
+                <p>
+                    Kennedy Jackson is a junior at Case Western Reserve University, pursuing dual degrees in Computer Science and Finance. She actively contributes to the campus community, serving on the executive boards of both Girls Who Code and the Association of Computing Machinery Women's Chapter.
+
+<br><br>Driven by a passion for financial literacy and a commitment to empowering her community, Kennedy created PiggyPal. This innovative platform aims to provide users with practical, user-friendly tools to enhance their financial knowledge and management skills. Through PiggyPal, she hopes to make financial education accessible and engaging for everyone.
+
+</p>
+            </div>
+        </div>
+        <div class="profile" id="bryceBio">
+            <img src="bryce portrait.jpg"> <!--put bryce's image here-->
+            <div>
+                <h2>
+                    Bryce Hodge
+                </h2>
+                <p>
+                    Bryce Hodge is a pre-law student at Case Western Reserve University in Cleveland, Ohio. At CWRU, Bryce is majoring in political science and business management. Bryce’s role in PiggyPal was primarily to help brainstorm and develop the financial management plans and to write the descriptions for each of the website's functions.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    </body>
+</html>
