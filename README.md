@@ -10,3 +10,5 @@ PiggyPal is a budgeting website designed to inform users about financial literac
 1. Navigate through the different sections using the menu.
 2. Use the budgeting tools to manage your finances.
 3. Check the investment planning section for safe investment tips.
+
+Click [here]([url](https://kennedycodes.github.io/My-PiggyPal/)) to begin your budgeting journey!
