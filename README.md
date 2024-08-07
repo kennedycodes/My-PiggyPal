@@ -11,4 +11,5 @@
 2. Use the budgeting tools to manage your finances.
 3. Check the investment planning section for safe investment tips.
 
-Click [here]([url](https://kennedycodes.github.io/My-PiggyPal/)) to begin your budgeting journey!
+Click below to start your budgeting journey today!
+https://kennedycodes.github.io/My-PiggyPal/ 
