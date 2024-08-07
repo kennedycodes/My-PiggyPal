@@ -1,4 +1,4 @@
-PiggyPal is a budgeting website designed to inform users about financial literacy and help them manage their finances effectively.
+**PiggyPal** is a budgeting website designed to inform users about financial literacy and help them manage their finances effectively.
 
 ## Features
 - Budgeting Tools
